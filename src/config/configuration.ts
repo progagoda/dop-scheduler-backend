@@ -6,7 +6,7 @@ export interface ConfigProps {
 }
 
 export const config = (): ConfigProps => ({
-  port: parseInt(process.env.PORT) || 8080,
+  port: Number(process.env.PORT),
   auth: {
     secret_key: process.env.SECRET_KEY,
   },

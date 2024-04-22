@@ -1,0 +1,46 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("POSTGRES_PRISMA_URL")
+  directUrl = env("POSTGRES_URL_NON_POOLING")
+}
+
+model User {
+  id       Int      @id @unique @default(autoincrement())
+  fullname String
+  password String
+  username String
+  Lesson   Lesson[]
+}
+
+model Group {
+  id      Int       @id @unique @default(autoincrement())
+  name    String
+  Lesson  Lesson[]
+  Student Student[]
+}
+
+model Lesson {
+  id         Int    @id @unique @default(autoincrement())
+  name       String
+  date       String
+  start_time String
+  end_time   String
+  location   String
+  zoom_link  String
+  teacher_id Int
+  group_id   Int
+  user       User   @relation(fields: [teacher_id], references: [id])
+  group      Group  @relation(fields: [group_id], references: [id])
+}
+
+model Student {
+  id       Int    @id @unique @default(autoincrement())
+  name     String
+  email    String
+  group_id Int
+  group    Group  @relation(fields: [group_id], references: [id])
+}
