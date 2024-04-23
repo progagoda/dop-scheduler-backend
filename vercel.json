@@ -1,11 +1,12 @@
 {
     "version": 2,
+    "buildCommand": "npm run build", 
+    "framework": "nestjs",
     "builds": [
         {
-            "buildCommand": "npm run build", 
+            
             "src": "src/main.ts",
-            "use": "@vercel/node",
-            "framework": "nestjs"
+            "use": "@vercel/node"
         }
     ],
     "routes":[
