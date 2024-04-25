@@ -1,5 +1,6 @@
 {
     "version": 2,
+    "buildCommand": "npm run build",
     "env":{
         "SECRET_KEY": "@secret_key",
         "PORT": "@port",
