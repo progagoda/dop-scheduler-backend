@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { GroupService } from 'src/group/group.service';
 import { LessonEntity } from 'src/lesson/entity/lesson.entity';
-import { PrismaService } from 'src/prisma.service';
+import { PrismaService } from '../prisma.service';
 import { DisabledTimeEntity } from './entity/disabledTime.entity';
 import { DisabledStartTimeDto } from './dto/disabledStartTime.dto';
 import * as _ from 'lodash';
