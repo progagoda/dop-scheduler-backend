@@ -7,6 +7,8 @@ import { ConfigModule } from '@nestjs/config';
 import { config } from './config/configuration';
 import { LessonModule } from './lesson/lesson.module';
 import { GroupModule } from './group/group.module';
+import { ServeStaticModule } from '@nestjs/serve-static';
+import { join } from 'path';
 
 @Module({
   imports: [
@@ -15,6 +17,10 @@ import { GroupModule } from './group/group.module';
     ConfigModule.forRoot({ isGlobal: true, load: [config] }),
     LessonModule,
     GroupModule,
+    ServeStaticModule.forRoot({
+      rootPath: join(__dirname, '..', 'swagger-static'),
+      serveRoot: process.env.NODE_ENV === 'development' ? '/' : '/swagger',
+    }),
   ],
   controllers: [AppController],
   providers: [AppService],
