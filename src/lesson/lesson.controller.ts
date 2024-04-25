@@ -1,9 +1,13 @@
 import {
   BadRequestException,
+  Body,
   Controller,
   Delete,
   Get,
+  HttpCode,
+  HttpStatus,
   Param,
+  Post,
   Request,
 } from '@nestjs/common';
 import {
@@ -12,8 +16,10 @@ import {
   ApiResponse,
   ApiTags,
 } from '@nestjs/swagger';
-import { LessonEntity } from './lesson.entity';
+import { LessonEntity } from './entity/lesson.entity';
 import { LessonService } from './lesson.service';
+import { DisabledStartTimeDto } from './dto/disabledStartTime.dto';
+import { DisabledTimeEntity } from './entity/disabledTime.entity';
 
 @ApiBearerAuth()
 @ApiTags('lesson')
@@ -67,5 +73,23 @@ export class LessonController {
   @Delete(':id')
   deleteById(@Param('id') id: number) {
     return this.lessonService.deleteById(Number(id));
+  }
+
+  @ApiOperation({ summary: 'Get disabled start time array of objects' })
+  @ApiResponse({
+    status: 200,
+    description: 'success',
+    type: [DisabledTimeEntity],
+  })
+  @ApiResponse({
+    status: 401,
+    description: 'Unauthorized',
+  })
+  @HttpCode(HttpStatus.OK)
+  @Post('disabled-start-time')
+  getDisabledStartTime(
+    @Body() disabledStartTimeDto: DisabledStartTimeDto,
+  ): Promise<DisabledTimeEntity[]> {
+    return this.lessonService.getDisabledStartTime(disabledStartTimeDto);
   }
 }
