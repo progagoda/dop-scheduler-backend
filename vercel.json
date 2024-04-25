@@ -1,7 +1,7 @@
 {
     "version": 2,
     "buildCommand": "npm run build",
-    "env":{
+    "env": {
         "SECRET_KEY": "@secret_key",
         "PORT": "@port",
         "POSTGRES_PRISMA_URL": "@postgres_prisma_url",
