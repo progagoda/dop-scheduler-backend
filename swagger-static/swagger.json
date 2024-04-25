@@ -1,0 +1,405 @@
+{
+  "openapi": "3.0.0",
+  "paths": {
+    "/auth/login": {
+      "post": {
+        "operationId": "AuthController_signIn",
+        "summary": "Auth user",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UserDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Auth",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AuthEntity"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          }
+        },
+        "tags": [
+          "auth"
+        ]
+      }
+    },
+    "/lesson/all": {
+      "get": {
+        "operationId": "LessonController_getAllByUserId",
+        "summary": "Get all lessons by current user",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Array of Lessons",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/LessonEntity"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          }
+        },
+        "tags": [
+          "lesson"
+        ],
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
+      }
+    },
+    "/lesson/{date}": {
+      "get": {
+        "operationId": "LessonController_getByDate",
+        "summary": "Get lessons by date and current auth user",
+        "parameters": [
+          {
+            "name": "date",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Array of Lessons",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/LessonEntity"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          }
+        },
+        "tags": [
+          "lesson"
+        ],
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
+      }
+    },
+    "/lesson/{id}": {
+      "delete": {
+        "operationId": "LessonController_deleteById",
+        "summary": "Delete lesson by id",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "401": {
+            "description": "Unauthorized"
+          }
+        },
+        "tags": [
+          "lesson"
+        ],
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
+      }
+    },
+    "/lesson/disabled-start-time": {
+      "post": {
+        "operationId": "LessonController_getDisabledStartTime",
+        "summary": "Get disabled start time array of objects",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/DisabledStartTimeDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/DisabledTimeEntity"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          }
+        },
+        "tags": [
+          "lesson"
+        ],
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
+      }
+    },
+    "/group/all": {
+      "get": {
+        "operationId": "GroupController_getAllGroups",
+        "summary": "Get all groups",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "return group array",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GroupEntity"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          }
+        },
+        "tags": [
+          "group"
+        ]
+      }
+    }
+  },
+  "info": {
+    "title": "Dop Sheduler",
+    "description": "The dop sheduler API description",
+    "version": "1.0",
+    "contact": {}
+  },
+  "tags": [],
+  "servers": [],
+  "components": {
+    "schemas": {
+      "UserDto": {
+        "type": "object",
+        "properties": {
+          "username": {
+            "type": "string",
+            "example": "admin",
+            "description": "User login"
+          },
+          "password": {
+            "type": "string",
+            "example": "123",
+            "description": "User password"
+          }
+        },
+        "required": [
+          "username",
+          "password"
+        ]
+      },
+      "AuthEntity": {
+        "type": "object",
+        "properties": {
+          "username": {
+            "type": "string",
+            "example": "admin",
+            "description": "Login"
+          },
+          "fullname": {
+            "type": "string",
+            "example": "Borisov Pavel Alexseevich",
+            "description": "Fullname"
+          },
+          "token": {
+            "type": "string",
+            "example": "",
+            "description": "token"
+          }
+        },
+        "required": [
+          "username",
+          "fullname",
+          "token"
+        ]
+      },
+      "LessonEntity": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "example": "OPD",
+            "description": "Name of lesson"
+          },
+          "teacher_id": {
+            "type": "number",
+            "example": 1,
+            "description": "Id of the teacher"
+          },
+          "date": {
+            "type": "string",
+            "example": "2024-04-22",
+            "description": "Date of the lesson"
+          },
+          "group_id": {
+            "type": "number",
+            "example": "1",
+            "description": "Id of group"
+          },
+          "group_name": {
+            "type": "string",
+            "example": "P34131",
+            "description": "Name of the group"
+          },
+          "start_time": {
+            "type": "string",
+            "example": "18:00",
+            "description": "Start of lesson time"
+          },
+          "end_time": {
+            "type": "string",
+            "example": "18:30",
+            "description": "End of lesson time"
+          },
+          "location": {
+            "type": "string",
+            "example": "Kronversky 14, 1444 room",
+            "description": "The address of the lesson"
+          },
+          "zoom_link": {
+            "type": "string",
+            "example": "https://itmo.zoom.us/j/89386858619?pwd=MjU4VkJGM0RmaTVHT0ZIcFpDYXFSUT09#success",
+            "description": "Zoom link"
+          }
+        },
+        "required": [
+          "name",
+          "teacher_id",
+          "date",
+          "group_id",
+          "group_name",
+          "start_time",
+          "end_time",
+          "location",
+          "zoom_link"
+        ]
+      },
+      "DisabledStartTimeDto": {
+        "type": "object",
+        "properties": {
+          "date": {
+            "type": "string",
+            "example": "2024-04-23",
+            "description": "Date of planning lesson"
+          },
+          "group_ids": {
+            "example": [
+              14,
+              15,
+              16,
+              17
+            ],
+            "description": "Range of disabled minutes in current hour",
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        },
+        "required": [
+          "date",
+          "group_ids"
+        ]
+      },
+      "DisabledTimeEntity": {
+        "type": "object",
+        "properties": {
+          "disableHour": {
+            "type": "number",
+            "example": 23,
+            "description": "Disabled hour"
+          },
+          "disabledMinutes": {
+            "example": [
+              14,
+              15,
+              16,
+              17
+            ],
+            "description": "Range of disabled minutes in current hour",
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        },
+        "required": [
+          "disableHour",
+          "disabledMinutes"
+        ]
+      },
+      "GroupEntity": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "number",
+            "example": "1",
+            "description": "Id of group"
+          },
+          "name": {
+            "type": "string",
+            "example": "P34111",
+            "description": "Name or number of group"
+          }
+        },
+        "required": [
+          "id",
+          "name"
+        ]
+      }
+    }
+  }
+}
