@@ -1,12 +1,6 @@
 {
     "version": 2,
     "buildCommand": "npm run build",
-    "env": {
-        "SECRET_KEY": "@SECRET_KEY",
-        "PORT": "@PORT",
-        "POSTGRES_PRISMA_URL": "@POSTGRES_PRISMA_URL",
-        "POSTGRES_URL_NON_POOLING": "@POSTGRES_PRISMA_URL"
-    },
     "builds": [
         {
             "src": "src/main.ts",
