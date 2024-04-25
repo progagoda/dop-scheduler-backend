@@ -2,10 +2,6 @@
     "version": 2,
     "builds": [
         {
-            "src": "src/prisma.service.ts",
-            "use": "@vercel/node"
-        },
-        {
             "src": "src/main.ts",
             "use": "@vercel/node"
         }
