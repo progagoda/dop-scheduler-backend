@@ -9,7 +9,6 @@
     },
     "builds": [
         {
-            
             "src": "src/main",
             "use": "@vercel/node"
         }
