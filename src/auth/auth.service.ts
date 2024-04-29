@@ -17,7 +17,7 @@ export class AuthService {
     if (user?.password !== password) {
       throw new UnauthorizedException();
     }
-    const payload = { id: user.id, username };
+    const payload = { id: user.id, username, fullname: user.fullname };
 
     return {
       username: user.username,

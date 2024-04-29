@@ -9,6 +9,8 @@ import { LessonModule } from './lesson/lesson.module';
 import { GroupModule } from './group/group.module';
 import { ServeStaticModule } from '@nestjs/serve-static';
 import { join } from 'path';
+import { MailerModule } from './mailer/mailer.module';
+import { StudentModule } from './student/student.module';
 
 @Module({
   imports: [
@@ -21,6 +23,8 @@ import { join } from 'path';
       rootPath: join(__dirname, '..', 'swagger-static'),
       serveRoot: process.env.NODE_ENV === 'development' ? '/' : '/swagger',
     }),
+    MailerModule,
+    StudentModule,
   ],
   controllers: [AppController],
   providers: [AppService],

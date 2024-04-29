@@ -20,6 +20,7 @@ import { LessonEntity } from './entity/lesson.entity';
 import { LessonService } from './lesson.service';
 import { DisabledStartTimeDto } from './dto/disabledStartTime.dto';
 import { DisabledTimeEntity } from './entity/disabledTime.entity';
+import { CreateLessonDto } from './dto/createLessonDto';
 
 @ApiBearerAuth()
 @ApiTags('lesson')
@@ -65,6 +66,7 @@ export class LessonController {
   @ApiResponse({
     status: 200,
     description: 'Success',
+    type: LessonEntity,
   })
   @ApiResponse({
     status: 401,
@@ -73,6 +75,27 @@ export class LessonController {
   @Delete(':id')
   deleteById(@Param('id') id: number) {
     return this.lessonService.deleteById(Number(id));
+  }
+
+  @ApiOperation({ summary: 'Create lesson' })
+  @ApiResponse({
+    status: 200,
+    description: 'Success',
+  })
+  @ApiResponse({
+    status: 401,
+    description: 'Unauthorized',
+  })
+  @Post('create')
+  create(@Request() req, @Body() createLessonDto: CreateLessonDto) {
+    const datePattern = /^\d{4}-\d{2}-\d{2}$/;
+    if (!datePattern.test(createLessonDto.date)) {
+      throw new BadRequestException('Invalid date');
+    }
+    if (!createLessonDto.end_time || !createLessonDto.start_time) {
+      throw new BadRequestException('Correct your range time');
+    }
+    return this.lessonService.create(createLessonDto, req.user);
   }
 
   @ApiOperation({ summary: 'Get disabled start time array of objects' })

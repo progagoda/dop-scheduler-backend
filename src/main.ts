@@ -11,7 +11,7 @@ async function bootstrap() {
   const configService = app.get(ConfigService);
   const port = configService.get<number>('port');
   const config = new DocumentBuilder()
-    .setTitle('Dop Sheduler')
+    .setTitle('Dop Scheduler')
     .setDescription('The dop sheduler API description')
     .setVersion('1.0')
     .build();

@@ -29,12 +29,12 @@ model Lesson {
   date       String
   start_time String
   end_time   String
-  location   String
+  location   String 
   zoom_link  String
   teacher_id Int
   group_id   Int
-  user       User   @relation(fields: [teacher_id], references: [id])
   group      Group  @relation(fields: [group_id], references: [id])
+  user       User   @relation(fields: [teacher_id], references: [id])
 }
 
 model Student {
