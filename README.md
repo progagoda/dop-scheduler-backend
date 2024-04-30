@@ -1,6 +1,6 @@
 # Swagger
 Swagger started on 8000 port and check /swagger url. Full path: [http://localhost:8000/swagger](http://localhost:8000/swagger)
-[image.png](https://postimg.cc/5YnjqKMz)
+[![image.png](https://i.postimg.cc/nrt7xNR3/image.png)](https://postimg.cc/5YnjqKMz)
 ```sh
 npm run start
 ```
