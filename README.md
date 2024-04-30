@@ -1,3 +1,9 @@
+# Swagger
+Swagger started on 8000 port and check /swagger url. Full path: [http://localhost:8000/swagger](http://localhost:8000/swagger)
+[image.png](https://postimg.cc/5YnjqKMz)
+```sh
+npm run start
+```
 <p align="center">
   <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="200" alt="Nest Logo" /></a>
 </p>
