@@ -15,4 +15,18 @@ export class UsersService {
       },
     });
   }
+
+  async changeFullname(
+    user_id: number,
+    fullname: string,
+  ): Promise<User | undefined> {
+    return this.prisma.user.update({
+      where: {
+        id: user_id,
+      },
+      data: {
+        fullname: fullname,
+      },
+    });
+  }
 }
